@@ -2,6 +2,8 @@
 ; Julson R. Lim
 ; October 16, 2010
 
+(tool-bar-mode -1)
+
 ;Load packages
 (let ((default-directory "~/.emacs.d/site-lisp/"))
   (normal-top-level-add-to-load-path '("."))

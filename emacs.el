@@ -1,31 +1,18 @@
 ;;;;; Julson's .emacs file
 ; Julson R. Lim
-; October 16, 2010
+; September 3, 20011
 
-(tool-bar-mode -1)
+; Set alternative hotkeys for Alt+x
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
 
-;Load packages
-(let ((default-directory "~/.emacs.d/site-lisp/"))
-  (normal-top-level-add-to-load-path '("."))
-  (normal-top-level-add-subdirs-to-load-path))
+; Set alternative hotkeys for backspace
+(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
 
-;Configure CEDET
-(load-file "~/.emacs.d/site-lisp/cedet/common/cedet.el")
-(global-ede-mode 1)                 ;Enable the project management system
-(semantic-load-enable-code-helpers) ;Enable prototype help and smart completion
-(global-srecode-minor-mode 1)       ;Enable template insertion menu
+; Remove UI elements
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
-;Tramp
-(require 'tramp)
-(setq tramp-default-method "ssh")
-
-;JDEE (requires CEDET)
-(require 'jde)
-
-;Emacs Code Browser
-(require 'ecb)
-
-;Configure Markdown-mode
-(autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
-(setq auto-mode-alist
-      (cons '("\\.markdown" . markdown-mode) auto-mode-alist))

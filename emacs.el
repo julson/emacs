@@ -1,6 +1,6 @@
 ;;;;; Julson's .emacs file
 ; Julson R. Lim
-; September 3, 20011
+; September 3, 2011
 
 ; Set alternative hotkeys for Alt+x
 (global-set-key "\C-x\C-m" 'execute-extended-command)
@@ -18,6 +18,21 @@
 
 ; Enable clipboard
 (setq x-select-enable-clipboard t)
+
+; Set up org-mode
+(require 'org-install)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
+; Load org-mode agendas
+(setq org-agenda-files (list "~/work/notes/home.org"))
+
+; Load color theme
+(require 'color-theme)
+(setq color-theme-is-global t)
+(color-theme-charcoal-black)
 
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and

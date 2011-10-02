@@ -50,6 +50,9 @@
 (setq color-theme-is-global t)
 (color-theme-charcoal-black)
 
+;; Interactively Do Things
+(ido-mode t)
+
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and
 ;;; interfacing with ELPA, the package archive.

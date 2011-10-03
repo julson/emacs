@@ -2,8 +2,13 @@
 ; Julson R. Lim
 ; September 3, 2011
 
+; Set global variables
+(setq org-base-path (expand-file-name "~/work/notes"))
+(setq site-lisp-base-path (expand-file-name "~/.emacs.d/site-lisp"))
+(setq inferior-lisp-program "clisp -K full")
+
 ; Set load paths
-(let ((base "~/.emacs.d/site-lisp"))
+(let ((base site-lisp-base-path))
   (add-to-list 'load-path base)
   (dolist (f (directory-files base))
     (let ((name (concat base "/" f)))
@@ -35,6 +40,13 @@
 ; Enable clipboard
 (setq x-select-enable-clipboard t)
 
+; Function to launch a bash shell and rename its buffer
+(defun bash (buffer-name)
+  "Start ansi-term with bash and rename buffer."
+  (interactive "Buffer name: ")
+  (ansi-term "/bin/bash")
+  (rename-buffer buffer-name t))
+
 ; Set up org-mode
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
@@ -43,15 +55,27 @@
 (setq org-log-done t)
 
 ; Load org-mode agendas
-(setq org-agenda-files (list "~/work/notes/home.org"))
+(setq org-agenda-files (list org-base-path))
 
 ; Load color theme
 (require 'color-theme)
 (setq color-theme-is-global t)
 (color-theme-charcoal-black)
 
-;; Interactively Do Things
+; Interactively Do Things
 (ido-mode t)
+
+; Load nxhtml and mumamo
+(load (concat site-lisp-base-path "/nxhtml/autostart.el"))
+
+(setq
+ nxhtml-global-minor-mode t
+ mumamo-chunk-coloring 'submode-colored
+ nxhtml-skip-welcome t
+ indent-region-mode t
+ rng-nxml-auto-validate-flag nil
+ nxml-degraded t)
+(add-to-list 'auto-mode-alist '("\\.html\\.erb'" . eruby-nxhtml-mumamo))
 
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and

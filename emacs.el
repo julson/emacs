@@ -64,6 +64,13 @@
 ; Interactively Do Things
 (ido-mode t)
 
+;; Add the original Emacs Lisp Package Archive
+(add-to-list 'package-archives
+             '("elpa" . "http://tromey.com/elpa/"))
+;; Add the user-contributed repository
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+
 ; Load nxhtml and mumamo
 (load (concat site-lisp-base-path "/nxhtml/autostart.el"))
 

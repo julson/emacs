@@ -57,11 +57,9 @@
 ; Load org-mode agendas
 (setq org-agenda-files (list org-base-path))
 
-; Load color theme
-(require 'color-theme)
-(color-theme-initialize)
-(setq color-theme-is-global t)
-(color-theme-charcoal-black)
+; Load solarized color-theme
+(require 'color-theme-solarized)
+(color-theme-solarized-dark)
 
 ; Interactively Do Things
 (ido-mode t)

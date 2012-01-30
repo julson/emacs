@@ -1,6 +1,4 @@
 ;;;;; Julson's .emacs file
-; Julson R. Lim
-; September 3, 2011
 
 ; Set global variables
 (setq org-base-path (expand-file-name "~/work/notes"))
@@ -21,7 +19,7 @@
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
 (setq auto-mode-alist
-      (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
+      (cons '("\\.md" . markdown-mode) auto-mode-alist))
 
 ; Set alternative hotkeys for Alt+x
 (global-set-key "\C-x\C-m" 'execute-extended-command)
@@ -67,9 +65,12 @@
 ;; Add the original Emacs Lisp Package Archive
 (add-to-list 'package-archives
              '("elpa" . "http://tromey.com/elpa/"))
+
 ;; Add the user-contributed repository
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
+
+(require 'rinari)
 
 ; Load nxhtml and mumamo
 (load (concat site-lisp-base-path "/nxhtml/autostart.el"))

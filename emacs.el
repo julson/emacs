@@ -45,6 +45,12 @@
   (ansi-term "/bin/bash")
   (rename-buffer buffer-name t))
 
+; hook to make the terminal colors match the color theme
+(defun ash-term-hooks ()
+  (setq term-default-bg-color (face-background 'default))
+  (setq term-default-fg-color (face-foreground 'default)))
+(add-hook 'term-mode-hook 'ash-term-hooks)
+
 ; Set up org-mode
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
@@ -62,13 +68,10 @@
 ; Interactively Do Things
 (ido-mode t)
 
-;; Add the original Emacs Lisp Package Archive
-(add-to-list 'package-archives
-             '("elpa" . "http://tromey.com/elpa/"))
-
-;; Add the user-contributed repository
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+; Set up elpa repos
+(setq package-archives ''(("gnu" . "http://elpa.gnu.org/packages/")
+			  ("elpa" . "http://tromey.com/elpa/")
+			  ("marmalade" . "http://marmalade-repo.org/package/")))
 
 (require 'rinari)
 

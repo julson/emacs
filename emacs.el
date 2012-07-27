@@ -37,7 +37,7 @@
 
 (setq-default indent-tabs-mode nil)
 (setq-default column-number-mode t)
-(set-default-font "Inconsolata-11")
+(set-default-font "Inconsolata-13")
 
 ;; Easy scrolling key-bindings
 (global-set-key "\M-n" '"\C-u1\C-v")
@@ -77,9 +77,9 @@
 (ido-mode t)
 
 ;; Set up elpa repos
-(setq package-archives ''(("gnu" . "http://elpa.gnu.org/packages/")
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			  ("elpa" . "http://tromey.com/elpa/")
-			  ("marmalade" . "http://marmalade-repo.org/package/")))
+			  ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 (require 'rinari)
 
@@ -102,3 +102,4 @@
 
 ;; Load clojure-mode
 (require 'clojure-mode)
+(add-to-list 'auto-mode-alist '("\.cljs$" . clojure-mode))

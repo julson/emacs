@@ -103,3 +103,11 @@
 ;; Load clojure-mode
 (require 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\.cljs$" . clojure-mode))
+
+;; Load paredit and make sure it's hooked to appropriate modes
+(autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)
+(add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1)))
+(add-hook 'lisp-mode-hook (lambda () (paredit-mode +1)))
+(add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
+(add-hook 'scheme-mode-hook (lambda () (paredit-mode +1)))
+(add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))

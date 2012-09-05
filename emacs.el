@@ -1,25 +1,68 @@
 ;;;;; Julson's .emacs file
 
+(require 'cl)
+(require 'package)
+
+;; Set up elpa repos
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+
+;; Ensure packages are installed on startup (based from Prelude's prelude-packages.el)
+;; Start of prelude-packages.el
+(defvar personal-packages
+  '(clojure-mode org paredit color-theme-solarized yasnippet)
+  "A list of packages to ensure are installed at launch.")
+
+(defun personal-packages-installed-p ()
+  (loop for p in personal-packages
+	when (not (package-installed-p p)) do (return nil)
+	finally (return t)))
+
+(defun personal-install-packages ()
+  (unless (personal-packages-installed-p)
+    ;; check for new packages (package versions)
+    (message "%s" "Refreshing package database...")
+    (package-refresh-contents)
+    (message "%s" " done.")
+
+    ;; install missing packages
+    (dolist (p personal-packages)
+      (unless (package-installed-p p)
+	(package-install p)))))
+
+(personal-install-packages)
+
+(defmacro personal-auto-install (extension package mode)
+  `(add-to-list 'auto-mode-alist
+		`(,extension . (lambda ()
+				 (unless (package-installed-p ',package)
+				   (package-install ',package))
+				 (,mode)))))
+
+(defvar personal-auto-install-alist
+  '(("\\.cljs" clojure-mode clojure-mode)
+    ("\\.md$" markdown-mode markdown-mode)
+    ("\\.markdown$" markdown-mode markdown-mode)
+    ("\\.org$" org-mode org-mode)))
+
+;; markdown-mode doesn't have autoloads for the auto-mode-alist
+;; so we add them manually if it's already installed (not sure why this is needed...)
+(when (package-installed-p 'markdown-mode)
+  (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode)))
+
+(dolist (entry personal-auto-install-alist)
+  (let ((extension (first entry))
+	(package (second entry))
+	(mode (third entry)))
+    (unless (package-installed-p package)
+      (personal-auto-install extension package mode))))
+
+;; End of prelude-packages.el
+
 ;; Set global variables
 (setq org-base-path (expand-file-name "~/work/notes"))
-(setq site-lisp-base-path (expand-file-name "~/.emacs.d/site-lisp"))
-(setq inferior-lisp-program "clisp -K full")
-
-;; Set load paths
-(let ((base site-lisp-base-path))
-  (add-to-list 'load-path base)
-  (dolist (f (directory-files base))
-    (let ((name (concat base "/" f)))
-      (when (and (file-directory-p name) 
-                 (not (equal f ".."))
-                 (not (equal f ".")))
-        (add-to-list 'load-path name)))))
-
-;; Initialize markdown-mode
-(autoload 'markdown-mode "markdown-mode.el"
-  "Major mode for editing Markdown files" t)
-(setq auto-mode-alist
-      (cons '("\\.md" . markdown-mode) auto-mode-alist))
 
 ;; Set alternative hotkeys for Alt+x
 (global-set-key "\C-x\C-m" 'execute-extended-command)
@@ -60,8 +103,6 @@
 (add-hook 'term-mode-hook 'ash-term-hooks)
 
 ;; Set up org-mode
-(require 'org-install)
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
@@ -69,40 +110,11 @@
 ;; Load org-mode agendas
 (setq org-agenda-files (list org-base-path))
 
-;; Load solarized color-theme
-(require 'color-theme-solarized)
+;; Set default color theme
 (color-theme-solarized-dark)
 
-;; Interactively Do Things
+;; Enable IDO mode
 (ido-mode t)
-
-;; Set up elpa repos
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			  ("elpa" . "http://tromey.com/elpa/")
-			  ("marmalade" . "http://marmalade-repo.org/packages/")))
-
-(require 'rinari)
-
-;; Load nxhtml and mumamo
-(load (concat site-lisp-base-path "/nxhtml/autostart.el"))
-
-(setq
- nxhtml-global-minor-mode t
- mumamo-chunk-coloring 'submode-colored
- nxhtml-skip-welcome t
- indent-region-mode t
- rng-nxml-auto-validate-flag nil
- nxml-degraded t)
-(add-to-list 'auto-mode-alist '("\\.html\\.erb'" . eruby-nxhtml-mumamo))
-
-;; Load and set up yasnippets
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory (concat site-lisp-base-path "/yasnippet/snippets"))
-
-;; Load clojure-mode
-(require 'clojure-mode)
-(add-to-list 'auto-mode-alist '("\.cljs$" . clojure-mode))
 
 ;; Load paredit and make sure it's hooked to appropriate modes
 (autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)

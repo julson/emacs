@@ -11,7 +11,7 @@
 ;; Ensure packages are installed on startup (based from Prelude's prelude-packages.el)
 ;; Start of prelude-packages.el
 (defvar personal-packages
-  '(clojure-mode org paredit color-theme-solarized yasnippet)
+  '(clojure-mode org paredit nrepl color-theme-solarized yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 (defun personal-packages-installed-p ()
@@ -111,7 +111,7 @@
 (setq org-agenda-files (list org-base-path))
 
 ;; Set default color theme
-(color-theme-solarized-dark)
+(load-theme 'solarized-dark t)
 
 ;; Enable IDO mode
 (ido-mode t)

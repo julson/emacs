@@ -11,7 +11,8 @@
 ;; Ensure packages are installed on startup (based from Prelude's prelude-packages.el)
 ;; Start of prelude-packages.el
 (defvar personal-packages
-  '(clojure-mode org paredit nrepl color-theme-solarized yasnippet)
+  '(clojure-mode magit magithub org paredit nrepl color-theme-solarized yasnippet
+                 markdown-mode melpa ido-ubiquitous clojurescript-mode crontab-mode)
   "A list of packages to ensure are installed at launch.")
 
 (defun personal-packages-installed-p ()
@@ -41,8 +42,7 @@
 				 (,mode)))))
 
 (defvar personal-auto-install-alist
-  '(("\\.cljs$" clojure-mode clojure-mode)
-    ("\\.md$" markdown-mode markdown-mode)
+  '(("\\.md$" markdown-mode markdown-mode)
     ("\\.markdown$" markdown-mode markdown-mode)
     ("\\.org$" org org-mode)))
 

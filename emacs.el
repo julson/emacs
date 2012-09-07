@@ -41,10 +41,10 @@
 				 (,mode)))))
 
 (defvar personal-auto-install-alist
-  '(("\\.cljs" clojure-mode clojure-mode)
+  '(("\\.cljs$" clojure-mode clojure-mode)
     ("\\.md$" markdown-mode markdown-mode)
     ("\\.markdown$" markdown-mode markdown-mode)
-    ("\\.org$" org-mode org-mode)))
+    ("\\.org$" org org-mode)))
 
 ;; markdown-mode doesn't have autoloads for the auto-mode-alist
 ;; so we add them manually if it's already installed (not sure why this is needed...)

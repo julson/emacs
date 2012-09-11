@@ -12,7 +12,8 @@
 ;; Start of prelude-packages.el
 (defvar personal-packages
   '(clojure-mode magit magithub org paredit nrepl color-theme-solarized yasnippet
-                 markdown-mode melpa ido-ubiquitous clojurescript-mode crontab-mode)
+                 markdown-mode melpa ido-ubiquitous clojurescript-mode crontab-mode
+                 multi-term )
   "A list of packages to ensure are installed at launch.")
 
 (defun personal-packages-installed-p ()
@@ -89,18 +90,8 @@
 ;; Enable clipboard
 (setq x-select-enable-clipboard t)
 
-;; Function to launch a bash shell and rename its buffer
-(defun bash (buffer-name)
-  "Start ansi-term with bash and rename buffer."
-  (interactive "Buffer name: ")
-  (ansi-term "/bin/bash")
-  (rename-buffer buffer-name t))
-
-;; hook to make the terminal colors match the color theme
-(defun ash-term-hooks ()
-  (setq term-default-bg-color (face-background 'default))
-  (setq term-default-fg-color (face-foreground 'default)))
-(add-hook 'term-mode-hook 'ash-term-hooks)
+(setq term-default-bg-color (face-background 'default))
+(setq term-default-fg-color (face-foreground 'default))
 
 ;; Set up org-mode
 (define-key global-map "\C-cl" 'org-store-link)

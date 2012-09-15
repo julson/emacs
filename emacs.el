@@ -76,9 +76,9 @@
 (global-set-key "\C-c\C-k" 'kill-region)
 
 ;; Remove UI elements
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode 0))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode 0))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode 0))
 
 (setq-default indent-tabs-mode nil)
 (setq-default column-number-mode t)

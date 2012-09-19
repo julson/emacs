@@ -10,6 +10,14 @@
 
 (push "/usr/local/bin" exec-path)
 
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+(setq-default tab-width 2)
+(setq inhibit-startup-message t)
+
+(fset 'yes-or-no-p 'y-or-n-p)
+
+
 ;; Ensure packages are installed on startup (based from Prelude's prelude-packages.el)
 ;; Start of prelude-packages.el
 (defvar personal-packages

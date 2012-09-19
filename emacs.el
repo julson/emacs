@@ -83,10 +83,14 @@
 (setq-default column-number-mode t)
 (set-default-font "Inconsolata-13")
 
+(add-to-list 'default-frame-alist
+             '(font . "Inconsolata-13"))
+
 ;; Easy scrolling key-bindings
 (global-set-key "\M-n" '"\C-u1\C-v")
 (global-set-key "\M-p" '"\C-u1\M-v")
 
+(global-set-key [(shift f8)] 'multi-term-dedicated-toggle)
 (global-set-key [(shift f9)] 'ns-toggle-fullscreen)
 
 ;; Enable clipboard

@@ -69,7 +69,6 @@
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 
-
 ;; Set alternative hotkeys for backspace
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
@@ -92,9 +91,6 @@
 
 ;; Enable clipboard
 (setq x-select-enable-clipboard t)
-
-(setq term-default-bg-color (face-background 'default))
-(setq term-default-fg-color (face-foreground 'default))
 
 ;; Set up org-mode
 (define-key global-map "\C-cl" 'org-store-link)

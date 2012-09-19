@@ -8,6 +8,8 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
+(push "/usr/local/bin" exec-path)
+
 ;; Ensure packages are installed on startup (based from Prelude's prelude-packages.el)
 ;; Start of prelude-packages.el
 (defvar personal-packages

@@ -17,13 +17,13 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-
 ;; Ensure packages are installed on startup (based from Prelude's prelude-packages.el)
 ;; Start of prelude-packages.el
 (defvar personal-packages
   '(clojure-mode magit magithub org paredit nrepl color-theme-solarized yasnippet
                  markdown-mode melpa ido-ubiquitous clojurescript-mode crontab-mode
-                 multi-term elscreen)
+                 multi-term elscreen inf-ruby ruby-block ruby-end ruby-tools rvm
+                 yari yaml-mode)
   "A list of packages to ensure are installed at launch.")
 
 (defun personal-packages-installed-p ()
@@ -71,6 +71,37 @@
       (personal-auto-install extension package mode))))
 
 ;; End of prelude-packages.el
+
+;; Shamelessly copied from prelude-ruby.el
+;; Set ruby mode to files
+(progn
+  (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.gemspec\\'" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("\\.ru\\'" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Gemfile\\'" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Guardfile\\'" . ruby-mode))
+  (add-to-list 'auto-mode-alist '("Capfile\\'" . ruby-mode))
+
+  (eval-after-load 'ruby-mode
+    '(progn
+       (defun my-ruby-mode-defaults ()
+         (inf-ruby-setup-keybindings)
+         ;; turn off the annoying input echo in irb
+         (setq comint-process-echoes t)
+         (ruby-block-mode t)
+         (ruby-end-mode +1)
+         (ruby-tools-mode +1)
+         ;; CamelCase aware editing operations
+         (subword-mode +1)
+         ;; bind yari in the local keymap
+         (local-set-key (kbd "C-h r") 'yari))
+
+       (setq my-ruby-mode-hook 'my-ruby-mode-defaults)
+
+       (add-hook 'ruby-mode-hook (lambda ()
+                                   (run-hooks 'my-ruby-mode-hook))))))
+;; End of prelude-ruby.el
 
 ;; Set global variables
 (setq org-base-path (expand-file-name "~/work/notes"))

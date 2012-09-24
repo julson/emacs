@@ -17,6 +17,8 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
+(global-linum-mode t)
+
 ;; Ensure packages are installed on startup (based from Prelude's prelude-packages.el)
 ;; Start of prelude-packages.el
 (defvar personal-packages

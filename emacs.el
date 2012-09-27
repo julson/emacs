@@ -25,7 +25,8 @@
   '(clojure-mode magit magithub org paredit nrepl color-theme-solarized yasnippet
                  markdown-mode melpa ido-ubiquitous clojurescript-mode crontab-mode
                  multi-term elscreen inf-ruby ruby-block ruby-end ruby-tools rvm
-                 yari yaml-mode)
+                 yari yaml-mode ac-nrepl clojure-test-mode midje-mode puppet-mode
+                 auto-complete)
   "A list of packages to ensure are installed at launch.")
 
 (defun personal-packages-installed-p ()
@@ -153,6 +154,20 @@
 ;; Enable IDO mode
 (ido-mode t)
 (setq ido-enable-flex-matching t)
+
+;; Setup auto-complete for nrepl
+(require 'ac-nrepl)
+(add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
+(add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'nrepl-mode))
+
+(defun set-auto-complete-as-completion-at-point-function ()
+  (setq completion-at-point-functions '(auto-complete)))
+(add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
+
+(add-hook 'nrepl-mode-hook 'set-auto-complete-as-completion-at-point-function)
+(add-hook 'nrepl-interaction-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
 ;; Load paredit and make sure it's hooked to appropriate modes
 (autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)

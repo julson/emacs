@@ -109,6 +109,7 @@
 
 ;; Enable IDO mode
 (ido-mode t)
+(setq ido-enable-flex-matching t)
 
 ;; Load paredit and make sure it's hooked to appropriate modes
 (autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)

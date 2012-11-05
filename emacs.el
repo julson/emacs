@@ -24,7 +24,7 @@
                  markdown-mode melpa ido-ubiquitous clojurescript-mode crontab-mode
                  multi-term elscreen inf-ruby ruby-block ruby-end ruby-tools rvm
                  yari yaml-mode ac-nrepl clojure-test-mode midje-mode puppet-mode
-                 auto-complete)
+                 auto-complete cljsbuild-mode)
   "A list of packages to ensure are installed at launch.")
 
 (defun personal-packages-installed-p ()

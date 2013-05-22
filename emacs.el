@@ -21,7 +21,7 @@
 ;; Start of prelude-packages.el
 (defvar personal-packages
   '(clojure-mode magit magithub org paredit nrepl color-theme-solarized yasnippet
-                 markdown-mode melpa ido-ubiquitous clojurescript-mode crontab-mode
+                 markdown-mode melpa ido-ubiquitous crontab-mode
                  multi-term elscreen inf-ruby ruby-block ruby-end ruby-tools rvm
                  yari yaml-mode ac-nrepl clojure-test-mode midje-mode puppet-mode
                  auto-complete cljsbuild-mode)
@@ -133,6 +133,8 @@
 (global-set-key "\M-p" '"\C-u1\M-v")
 
 (global-set-key [(shift f8)] 'multi-term-dedicated-toggle)
+
+;; Currently not-working in Cocoa Emacs 24.3 from homebrew
 (global-set-key [(shift f9)] 'ns-toggle-fullscreen)
 
 ;; Enable clipboard

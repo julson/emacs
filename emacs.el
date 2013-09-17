@@ -169,6 +169,10 @@
 (add-hook 'nrepl-mode-hook 'set-auto-complete-as-completion-at-point-function)
 (add-hook 'nrepl-interaction-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward
+      uniquify-separator ":")
+
 ;; Load paredit and make sure it's hooked to appropriate modes
 (autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1)))
